@@ -1,0 +1,6 @@
+.venv/
+.vscode/
+/*.pptx
+/*.svg
+/*.png
+/발표대본*.md
