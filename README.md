@@ -32,9 +32,58 @@
 
 ```
 mealfit
-├── frontend     # React 웹 클라이언트
-├── backend      # Spring Boot REST API
-└── ai-server    # FastAPI 가격 예측·RAG·LLM 서버
+├── frontend                      # React 웹 클라이언트
+│   └── src
+│       ├── api/                  # Axios 공통 설정
+│       ├── app/ · layouts/       # 앱 라우팅, 공통 레이아웃
+│       ├── components/ · hooks/  # 공통 컴포넌트, 커스텀 훅
+│       ├── store/ · utils/       # 전역 상태, 유틸
+│       └── features/             # 기능별 모듈
+│           ├── auth · account    # 로그인, 회원가입, 내 정보
+│           ├── facility          # 시설 프로필·구성원
+│           ├── mealplan          # 주간·월간 식단표, 메뉴 추천 로직
+│           ├── menu · search     # 메뉴 목록, 검색
+│           ├── recommendation    # 메뉴 추천
+│           ├── budget            # 원가·예산, 메뉴 교체
+│           ├── price · ingredient# 식재료 가격·위험
+│           ├── dashboard         # 대시보드
+│           ├── chat · guide      # 챗봇, 페이지 안내 AI
+│           └── admin · manager   # 관리자·매니저 화면
+│
+├── backend                       # Spring Boot REST API
+│   ├── src/main
+│   │   ├── java/com/human/backend
+│   │   │   ├── auth · member     # JWT 인증, 회원
+│   │   │   ├── facility          # 시설 프로필, 월 예산
+│   │   │   ├── manager · admin   # 구성원·권한 관리, 시스템 상태
+│   │   │   ├── errorlog          # 에러 로그
+│   │   │   ├── mealplan · menu   # 식단 저장·조회, 메뉴 조회
+│   │   │   ├── recommendation    # 메뉴 추천
+│   │   │   ├── cost · budget     # 원가 계산, 예산
+│   │   │   ├── price · ingredient# 가격·식재료
+│   │   │   ├── prediction · risk # AI 서버 연동, 가격 위험도
+│   │   │   ├── dashboard · search· chat
+│   │   │   ├── automation · scheduling · integration
+│   │   │   └── global            # 보안 설정, 예외 처리, 공통
+│   │   └── resources             # application.properties, db/manual
+│   ├── src/test                  # 단위·통합 테스트
+│   ├── db/migrations             # DB 마이그레이션 SQL
+│   ├── scripts                   # KAMIS 가격 수집·매핑 스크립트
+│   └── API_SPEC.md               # API 명세
+│
+└── ai-server                     # FastAPI AI 서버
+    ├── app
+    │   ├── main.py               # FastAPI 진입점
+    │   ├── api/routes            # REST 엔드포인트
+    │   ├── prediction            # 가격 예측·위험도 서비스
+    │   ├── rag                   # 임베딩, 하이브리드 검색, 질의 분석
+    │   ├── agent                 # LangGraph 에이전트
+    │   ├── mcp_server.py         # MCP 서버(search_menu)
+    │   ├── llm · schemas · core
+    ├── training                  # 모델 학습(price, cost), 데이터 전처리 노트북
+    ├── artifacts                 # 학습된 모델 파일
+    ├── dataset · vector_db       # 데이터, 벡터 DB
+    └── tests
 ```
 
 ## 실행 방법
